@@ -20,23 +20,23 @@ div {
 	margin-top: 15px;
 }
 
-.p-box-offwhite {
+#p-box-offwhite {
 	background-color: #FFFFCC;
 }
 
-.p-box-lightblue {
+#p-box-lightblue {
 	background-color: lightblue;
 }
 
-.p-box-lightgreen {
+#p-box-lightgreen {
 	background-color: lightgreen;
 }
 
-.p-box-pink {
+#p-box-pink {
 	background-color: pink;
 }
 
-.p-box-purple {
+#p-box-purple {
 	background-color: purple;
 }
 

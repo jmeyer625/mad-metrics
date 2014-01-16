@@ -5,6 +5,20 @@ time before clicking sign up
 time spent on page
 time spent on each section of the page */
 var startTime = new Date();
+var pageClickDelay = null;
+var yPositionPrev = 0;
+var totalScroll = 0;
+var maxScroll = 0;
+var prevTime = startTime;
+var timeOffwhite = 0, timeLightblue = 0, timeLightgreen = 0, timePink = 0, timePurple = 0;
+var timeArray = [timeOffwhite, timeLightblue, timeLightgreen, timePink, timePurple];
+var heightOffwhite = document.getElementById('p-box-offwhite').offsetTop;
+var heightLightblue = document.getElementById('p-box-lightblue').offsetTop;
+var heightLightgreen = document.getElementById('p-box-lightgreen').offsetTop;
+var heightPink = document.getElementById('p-box-pink').offsetTop;
+var heightPurple = document.getElementById('p-box-purple').offsetTop;
+var heightArray = [heightOffwhite, heightLightblue, heightLightgreen, heightPink, heightPurple];
+var screenPositionMax = yPositionPrev + window.innerHeight;
 
 var signupTrack = function() {
 	var clickTime = new Date();
@@ -18,7 +32,7 @@ var timeOnPage = function() {
 	return closeDelay;
 };
 
-var displayMetrics = function(clickDelay,totalScroll,maxScroll) {
+var displayMetrics = function(clickDelay,totalScroll,maxScroll,timeArray) {
 	var closeDelay = timeOnPage();
 	var pageProportion = ((maxScroll+window.innerHeight) / document.body.scrollHeight)*100;
 	alert("You have been on the page for " + closeDelay + " seconds!");
@@ -29,6 +43,10 @@ var displayMetrics = function(clickDelay,totalScroll,maxScroll) {
 	};
 	alert("You scrolled a total of " + totalScroll + " pixels.");
 	alert("You viewed " + pageProportion + "% of the page.");
+	var nameArray = ["off-white", "lightblue", "lightgreen", "pink", "purple"];
+	for (var i=0; i<timeArray.length; i++) {
+		alert("You spent " + timeArray[i]/(prevTime-startTime)*100 + "% on the " + nameArray[i] + " section");
+	};
 };
 
 var updateMaxScroll = function(yPositionCurr, maxScroll) {
@@ -50,24 +68,24 @@ var updateScrollMetrics = function(totalScroll, yPositionPrev, maxScroll) {
 	return {totalScroll:totalScroll, maxScroll:maxScroll, yPositionCurr:yPositionCurr, scrollTime:scrollTime};
 };
 
-var pageClickDelay = null;
-var yPositionPrev = 0;
-var totalScroll = 0;
-var maxScroll = 0;
-var prevTime = startTime;
-var timeOffwhite = 0, timeLightblue = 0, timeLightgreen = 0, timePink = 0, timePurple = 0;
-
 window.onscroll = function(){
 	var scrollResult = updateScrollMetrics(totalScroll, yPositionPrev, maxScroll);
 	yPositionPrev = scrollResult.yPositionCurr;
 	totalScroll = scrollResult.totalScroll;
 	maxScroll = scrollResult.maxScroll;
-
+	screenPositionMax = yPositionPrev + window.innerHeight;
+	for (var i=0; i<heightArray.length; i++) {
+		if ((heightArray[i] > window.pageYOffset) && (heightArray[i] < screenPositionMax)) {
+			timeArray[i] = timeArray[i] + (scrollResult.scrollTime-prevTime);
+		}; console.log(heightArray);console.log(timeArray);
+	};
+	prevTime = scrollResult.scrollTime;
 };
 
-var buttonHeight = document.getElementById("signup").offsetTop;
-console.log(buttonHeight);
+for (var i = 0; i<heightArray.length; i++) {
+	console.log(heightArray[i]);
+}
 
 document.getElementById("signup").onclick = function(){pageClickDelay = signupTrack()};
-document.getElementById("metrics").onclick = function(){displayMetrics(pageClickDelay,totalScroll,maxScroll)};
+document.getElementById("metrics").onclick = function(){displayMetrics(pageClickDelay,totalScroll,maxScroll,timeArray)};
 
