@@ -1,0 +1,44 @@
+.container {
+	max-width: 600px;
+	background-color: lightgray;
+	margin: auto;
+	padding: 10px 30px;
+}
+
+p {
+	font-size: 20px;
+}
+
+body {
+	padding-top: 50px;
+}
+
+#metrics {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	border: none;
+	background-color: gray;
+	color: white;
+	padding: 5px 20px;
+}
+
+#metrics:hover {
+	background-color: #ED4E6E;
+}
+
+#signup {
+	position: fixed;
+	top: 20px;
+	right: 48%;
+	border: none;
+	background-color: black;
+	color: white;
+	padding: 5px 30px;
+}
+
+#signup:hover {
+	background-color: #ED4E6E;
+	color: white;
+	font-weight: bold;
+}
