@@ -19,7 +19,8 @@ var heightPink = document.getElementById('p-box-pink').offsetTop;
 var heightPurple = document.getElementById('p-box-purple').offsetTop;
 var heightArray = [heightOffwhite, heightLightblue, heightLightgreen, heightPink, heightPurple];
 var screenPositionMax = yPositionPrev + window.innerHeight;
-var isHeatMap = false
+var isHeatMap = false;
+var chartBars = document.getElementsByClassName("bar");
 
 
 var signupTrack = function() {
@@ -52,6 +53,26 @@ var updateScrollMetrics = function(totalScroll, yPositionPrev, maxScroll) {
 	maxScroll = updateMaxScroll(yPositionCurr,maxScroll);
 	return {totalScroll:totalScroll, maxScroll:maxScroll, yPositionCurr:yPositionCurr, scrollTime:scrollTime};
 };
+
+var updateBars = function(clickDelay,totalScroll,maxScroll,timeArray,closeDelay,chartBars) {
+	if (clickDelay === null) {clickDelay = 0};
+	chartBars[0].style.width = (document.body.scrollHeight/5).toString()+"px";
+	chartBars[1].style.width = ((maxScroll+window.innerHeight)/5).toString()+"px";
+	chartBars[2].style.width = (totalScroll/5).toString()+"px";
+	chartBars[3].style.width = (clickDelay.toString()*100)+"px";
+	chartBars[4].style.width = (closeDelay.toString()*100)+"px";
+	chartBars[5].style.width = ((timeArray[0]/10).toString())+"px";
+	chartBars[5].style.backgroundColor = "#FFFFCC";
+	chartBars[6].style.width = ((timeArray[1]/10).toString())+"px";
+	chartBars[6].style.backgroundColor = "lightblue";
+	chartBars[7].style.width = ((timeArray[2]/10).toString())+"px";
+	chartBars[7].style.backgroundColor = "lightgreen";
+	chartBars[8].style.width = ((timeArray[3]/10).toString())+"px";
+	chartBars[8].style.backgroundColor = "pink";
+	chartBars[9].style.width = ((timeArray[4]/10).toString())+"px";
+	chartBars[9].style.backgroundColor = "purple";
+	document.getElementById("metricsBox").style.display = "block";
+}
 
 var toggleHeatMap = function(timeArray) {
 	var colorMapArray = ["#AA0114","#FFD800", "#005A04"];
@@ -99,6 +120,7 @@ var displayMetrics = function(clickDelay,totalScroll,maxScroll,timeArray) {
 	for (var i=0; i<timeArray.length; i++) {
 		alert("You spent " + Math.round(timeArray[i]/(prevTime-startTime)*100) + "% on the " + nameArray[i] + " section");
 	};
+	updateBars(clickDelay,totalScroll,maxScroll,timeArray,closeDelay,chartBars);
 };
 
 window.onscroll = function(){
@@ -121,3 +143,6 @@ document.getElementById("heatmap").onclick = function() {
 	isHeatMap = toggleHeatMap(timeArray)
 	console.log(isHeatMap);
 };
+
+
+console.log(chartBars);
