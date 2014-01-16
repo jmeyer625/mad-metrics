@@ -3,6 +3,7 @@
 	background-color: lightgray;
 	margin: auto;
 	padding: 10px 30px;
+	box-shadow: none;
 }
 
 p {
@@ -11,6 +12,32 @@ p {
 
 body {
 	padding-top: 50px;
+}
+
+div {
+	padding: 18px;
+	box-shadow: 5px 5px 5px #666666;
+	margin-top: 15px;
+}
+
+.p-box-offwhite {
+	background-color: #FFFFCC;
+}
+
+.p-box-lightblue {
+	background-color: lightblue;
+}
+
+.p-box-lightgreen {
+	background-color: lightgreen;
+}
+
+.p-box-pink {
+	background-color: pink;
+}
+
+.p-box-purple {
+	background-color: purple;
 }
 
 #metrics {

@@ -20,14 +20,14 @@ var timeOnPage = function() {
 
 var displayMetrics = function(clickDelay,totalScroll,maxScroll) {
 	var closeDelay = timeOnPage();
-	var pageProportion = (maxScroll / document.body.scrollHeight)*100;
+	var pageProportion = ((maxScroll+window.innerHeight) / document.body.scrollHeight)*100;
 	alert("You have been on the page for " + closeDelay + " seconds!");
 	if (clickDelay === null) {
 		alert("You didn't click the sign-up button.");
 	} else {
 		alert("You clicked the sign-up button after " + clickDelay + " seconds on the page!");
 	};
-	alert("You scrolled " + totalScroll + " pixels.");
+	alert("You scrolled a total of " + totalScroll + " pixels.");
 	alert("You viewed " + pageProportion + "% of the page.");
 };
 
@@ -44,23 +44,29 @@ var updateTotalScroll = function(totalScroll, yPositionPrev, yPositionCurr) {
 
 var updateScrollMetrics = function(totalScroll, yPositionPrev, maxScroll) {
 	yPositionCurr = window.pageYOffset;
+	var scrollTime = new Date();
 	totalScroll = updateTotalScroll(totalScroll,yPositionPrev,yPositionCurr);
 	maxScroll = updateMaxScroll(yPositionCurr,maxScroll);
-	return {totalScroll:totalScroll, maxScroll:maxScroll, yPositionCurr:yPositionCurr};
+	return {totalScroll:totalScroll, maxScroll:maxScroll, yPositionCurr:yPositionCurr, scrollTime:scrollTime};
 };
 
 var pageClickDelay = null;
 var yPositionPrev = 0;
 var totalScroll = 0;
 var maxScroll = 0;
+var prevTime = startTime;
+var timeOffwhite = 0, timeLightblue = 0, timeLightgreen = 0, timePink = 0, timePurple = 0;
 
 window.onscroll = function(){
 	var scrollResult = updateScrollMetrics(totalScroll, yPositionPrev, maxScroll);
 	yPositionPrev = scrollResult.yPositionCurr;
 	totalScroll = scrollResult.totalScroll;
 	maxScroll = scrollResult.maxScroll;
+
 };
-console.log(document.body.scrollHeight);
+
+var buttonHeight = document.getElementById("signup").offsetTop;
+console.log(buttonHeight);
 
 document.getElementById("signup").onclick = function(){pageClickDelay = signupTrack()};
 document.getElementById("metrics").onclick = function(){displayMetrics(pageClickDelay,totalScroll,maxScroll)};
