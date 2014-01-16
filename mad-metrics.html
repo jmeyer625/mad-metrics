@@ -23,18 +23,18 @@
 	<button id="metrics">Record metrics</button>
 	<button id="heatmap">Toggle heatmap</button>
 	<button id="signup">Sign up!</button>
-<div id="metricsBox">
-	<div id="pageLength" class="bar"><p>Total length of page</p></div>
-	<div id="percentPageViewed" class="bar"><p>Portion of page viewed</p></div>
-	<div id="scrollDistance" class ="bar"><p>Total scroll distance</p></div>
-	<div class="spacer"></div>
-	<div id="signUpTime" class="bar"><p>Time before clicking sign-up</p></div>
-	<div id="pageTime" class="bar"><p>Total time on page</p></div>
-	<div id="sectionTimeOffwhite" class="bar"><p>Total time on 1st section</p></div>
-	<div id="sectionTimeLightblue" class="bar"><p>Total time on 2nd section</p></div>
-	<div id="sectionTimeLightgreen" class="bar"><p>Total time on 3rd section</p></div>
-	<div id="sectionTimePink" class="bar"><p>Total time on 4th section</p></div>
-	<div id="sectionTimePurple" class="bar"><p>Total time on 5th section</p></div>
+<div id="metricsBox" class="metric-container">
+	<div class="bar-container"><div id="pageLength" class="bar"></div><p>Total length of page</p></div>
+	<div class="bar-container"><div id="percentPageViewed" class="bar"></div><p>Portion of page viewed</p></div>
+	<div class="bar-container"><div id="scrollDistance" class ="bar"></div><p>Total scroll distance</p></div>
+	<div class="bar-container"><div class="spacer"></div></div>
+	<div class="bar-container"><div id="signUpTime" class="bar"></div><p>Time before clicking sign-up</p></div>
+	<div class="bar-container"><div id="pageTime" class="bar"></div><p>Total time on page</p></div>
+	<div class="bar-container"><div id="sectionTimeOffwhite" class="bar"></div><p>Time on 1st section</p></div>
+	<div class="bar-container"><div id="sectionTimeLightblue" class="bar"></div><p>Time on 2nd section</p></div>
+	<div class="bar-container"><div id="sectionTimeLightgreen" class="bar"></div><p>Time on 3rd section</p></div>
+	<div class="bar-container"><div id="sectionTimePink" class="bar"></div><p>Time on 4th section</p></div>
+	<div class="bar-container"><div id="sectionTimePurple" class="bar"></div><p>Time on 5th section</p></div>
 </div>
 	<script type="text/javascript" src="metrics.js"></script>
 </body>

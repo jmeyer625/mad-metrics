@@ -81,14 +81,17 @@ div {
 }
 
 .bar {
-	background-color: #059;
+	background-color: #09C;
 	height: 30px;
 	width: 200px;
 	margin: 10px 0 10px 50px;
 	box-shadow: none;
 	padding: 0;
-	position: relative;
 	border-radius: 0 5px 5px 0;
+	position: absolute;
+	top: 0px;
+	left: 100px;
+	border: 1px solid lightgray;
 }
 
 .spacer {
@@ -107,8 +110,18 @@ div {
 	margin: 0;
 	font-size: 12px;
 	font-family: sans-serif;
-	color: white;
 	position: absolute;
 	top: 12px;
 	left: 5px;
+	text-align: right;
+	width: 100px;
+}
+
+.bar-container {
+	width: 1000px;
+	height: 30px;
+	position: relative;
+	box-shadow: none;
+	margin: 0;
+	padding: 10px;
 }

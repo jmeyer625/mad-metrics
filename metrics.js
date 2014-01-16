@@ -82,7 +82,6 @@ var toggleHeatMap = function(timeArray) {
 	for (var j = 0; j<timeArray.length; j++) {
 		if (timeArray[j] === NaN) {timeArray[j]=0;}
 	};
-	console.log(timeArray);
 	if (isHeatMap) {
 		for (var i = 0; i<divArray.length; i++) {
 			divArray[i].style.backgroundColor=colorArray[i];
@@ -91,7 +90,6 @@ var toggleHeatMap = function(timeArray) {
 	} else {
 		for (var i = 0; i<divArray.length; i++) {
 			var percentFill = timeArray[i]/(prevTime-startTime);
-			console.log(percentFill);
 			if (percentFill <= 0.13) {
 				divArray[i].style.backgroundColor=colorMapArray[0];
 			} else if (percentFill <= 0.25) {
@@ -141,8 +139,5 @@ document.getElementById("signup").onclick = function(){pageClickDelay = signupTr
 document.getElementById("metrics").onclick = function(){displayMetrics(pageClickDelay,totalScroll,maxScroll,timeArray)};
 document.getElementById("heatmap").onclick = function() {
 	isHeatMap = toggleHeatMap(timeArray)
-	console.log(isHeatMap);
 };
 
-
-console.log(chartBars);
