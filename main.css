@@ -50,14 +50,14 @@ div {
 	padding: 5px 20px;
 }
 
-#metrics:hover {
+#metrics:hover, #heatmap:hover {
 	background-color: #ED4E6E;
 }
 
 #signup {
 	position: fixed;
 	top: 20px;
-	right: 48%;
+	right: 47.5%;
 	border: none;
 	background-color: black;
 	color: white;
@@ -68,4 +68,14 @@ div {
 	background-color: #ED4E6E;
 	color: white;
 	font-weight: bold;
+}
+
+#heatmap {
+	position: fixed;
+	top: 50px;
+	right: 20px;
+	border: none;
+	background-color: gray;
+	color: white;
+	padding: 5px 20px;
 }

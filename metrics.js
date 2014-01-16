@@ -19,6 +19,8 @@ var heightPink = document.getElementById('p-box-pink').offsetTop;
 var heightPurple = document.getElementById('p-box-purple').offsetTop;
 var heightArray = [heightOffwhite, heightLightblue, heightLightgreen, heightPink, heightPurple];
 var screenPositionMax = yPositionPrev + window.innerHeight;
+var isHeatMap = false
+
 
 var signupTrack = function() {
 	var clickTime = new Date();
@@ -30,23 +32,6 @@ var timeOnPage = function() {
 	var closeTime = new Date();
 	var closeDelay = (closeTime - startTime)/1000;
 	return closeDelay;
-};
-
-var displayMetrics = function(clickDelay,totalScroll,maxScroll,timeArray) {
-	var closeDelay = timeOnPage();
-	var pageProportion = ((maxScroll+window.innerHeight) / document.body.scrollHeight)*100;
-	alert("You have been on the page for " + closeDelay + " seconds!");
-	if (clickDelay === null) {
-		alert("You didn't click the sign-up button.");
-	} else {
-		alert("You clicked the sign-up button after " + clickDelay + " seconds on the page!");
-	};
-	alert("You scrolled a total of " + totalScroll + " pixels.");
-	alert("You viewed " + pageProportion + "% of the page.");
-	var nameArray = ["off-white", "lightblue", "lightgreen", "pink", "purple"];
-	for (var i=0; i<timeArray.length; i++) {
-		alert("You spent " + timeArray[i]/(prevTime-startTime)*100 + "% on the " + nameArray[i] + " section");
-	};
 };
 
 var updateMaxScroll = function(yPositionCurr, maxScroll) {
@@ -68,6 +53,54 @@ var updateScrollMetrics = function(totalScroll, yPositionPrev, maxScroll) {
 	return {totalScroll:totalScroll, maxScroll:maxScroll, yPositionCurr:yPositionCurr, scrollTime:scrollTime};
 };
 
+var toggleHeatMap = function(timeArray) {
+	var colorMapArray = ["#AA0114","#FFD800", "#005A04"];
+	var divArray = [document.getElementById('p-box-offwhite'),document.getElementById('p-box-lightblue'),document.getElementById('p-box-lightgreen'),
+	document.getElementById('p-box-pink'),document.getElementById('p-box-purple')];
+	var colorArray = ["#FFFFCC","lightblue","lightgreen","pink","purple"];
+	for (var j = 0; j<timeArray.length; j++) {
+		if (timeArray[j] === NaN) {timeArray[j]=0;}
+	};
+	console.log(timeArray);
+	if (isHeatMap) {
+		for (var i = 0; i<divArray.length; i++) {
+			divArray[i].style.backgroundColor=colorArray[i];
+		} 	
+		isHeatMap = false;
+	} else {
+		for (var i = 0; i<divArray.length; i++) {
+			var percentFill = timeArray[i]/(prevTime-startTime);
+			console.log(percentFill);
+			if (percentFill <= 0.13) {
+				divArray[i].style.backgroundColor=colorMapArray[0];
+			} else if (percentFill <= 0.25) {
+				divArray[i].style.backgroundColor=colorMapArray[1];
+			} else {
+				divArray[i].style.backgroundColor=colorMapArray[2];
+			}
+		} 
+		isHeatMap = true;
+	};
+	return isHeatMap;	
+};
+
+var displayMetrics = function(clickDelay,totalScroll,maxScroll,timeArray) {
+	var closeDelay = timeOnPage();
+	var pageProportion = ((maxScroll+window.innerHeight) / document.body.scrollHeight)*100;
+	alert("You have been on the page for " + closeDelay + " seconds!");
+	if (clickDelay === null) {
+		alert("You didn't click the sign-up button.");
+	} else {
+		alert("You clicked the sign-up button after " + clickDelay + " seconds on the page!");
+	};
+	alert("You scrolled a total of " + totalScroll + " pixels.");
+	alert("You viewed " + pageProportion + "% of the page.");
+	var nameArray = ["off-white", "lightblue", "lightgreen", "pink", "purple"];
+	for (var i=0; i<timeArray.length; i++) {
+		alert("You spent " + Math.round(timeArray[i]/(prevTime-startTime)*100) + "% on the " + nameArray[i] + " section");
+	};
+};
+
 window.onscroll = function(){
 	var scrollResult = updateScrollMetrics(totalScroll, yPositionPrev, maxScroll);
 	yPositionPrev = scrollResult.yPositionCurr;
@@ -77,15 +110,14 @@ window.onscroll = function(){
 	for (var i=0; i<heightArray.length; i++) {
 		if ((heightArray[i] > window.pageYOffset) && (heightArray[i] < screenPositionMax)) {
 			timeArray[i] = timeArray[i] + (scrollResult.scrollTime-prevTime);
-		}; console.log(heightArray);console.log(timeArray);
+		};
 	};
 	prevTime = scrollResult.scrollTime;
 };
 
-for (var i = 0; i<heightArray.length; i++) {
-	console.log(heightArray[i]);
-}
-
 document.getElementById("signup").onclick = function(){pageClickDelay = signupTrack()};
 document.getElementById("metrics").onclick = function(){displayMetrics(pageClickDelay,totalScroll,maxScroll,timeArray)};
-
+document.getElementById("heatmap").onclick = function() {
+	isHeatMap = toggleHeatMap(timeArray)
+	console.log(isHeatMap);
+};
